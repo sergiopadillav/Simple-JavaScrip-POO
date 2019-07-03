@@ -18,6 +18,7 @@ class UI{
                     <strong>Product</strong>: ${product.name}
                     <strong>Price</strong>: ${product.price}
                     <strong>Year</strong>: ${product.year}
+                    <a href="#" class="btn btn-danger" Name="delete" >Delete</a>
                 </div>
             </div>
         `;
@@ -25,12 +26,19 @@ class UI{
 
   }
 
-  delateProduct(){
+  delateProduct(element){
+    if(element.name === "delete"){
+      element.parentElement.parentElement.parentElement.remove();
+    }
 
   }
 
   showMessage(){
 
+  }
+
+  resetForm(){
+    document.getElementById("product-form").reset();
   }
 }
 
@@ -46,6 +54,12 @@ document.getElementById("product-form")
   const ui = new UI();
 
   ui.addProduct(product);
+  ui.resetForm();
 
   e.preventDefault();
 });
+
+document.getElementById("product-list").addEventListener("click", function(e){
+  const ui = new UI();
+  ui.delateProduct(e.target)
+})
