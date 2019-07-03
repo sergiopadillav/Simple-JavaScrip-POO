@@ -9,7 +9,19 @@ class Product {
 }
 
 class UI{
-  addProduct(){
+  addProduct(product){
+    const productList = document.getElementById('product-list');
+        const element = document.createElement('div');
+        element.innerHTML = `
+            <div class="card text-center mb-4">
+                <div class="card-body">
+                    <strong>Product</strong>: ${product.name}
+                    <strong>Price</strong>: ${product.price}
+                    <strong>Year</strong>: ${product.year}
+                </div>
+            </div>
+        `;
+        productList.appendChild(element);
 
   }
 
@@ -29,7 +41,11 @@ document.getElementById("product-form")
   const price = document.getElementById("price").value;
   const year = document.getElementById("year").value;
 
-  console.log(new Product(name, price, year));
-  console.log(name, price, year);
+  const product = new Product(name, price, year);
+
+  const ui = new UI();
+
+  ui.addProduct(product);
+
   e.preventDefault();
 });
