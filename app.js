@@ -27,8 +27,11 @@ class UI{
   }
 
   delateProduct(element){
+    const ui = new UI();
+
     if(element.name === "delete"){
       element.parentElement.parentElement.parentElement.remove();
+      ui.showMessage("Product Deleted Succsssfully", "info")
     }
 
   }
@@ -78,15 +81,37 @@ document.getElementById("product-form")
         }
 
   ui.addProduct(product);
+
+  if(localStorage.getItem('products') === null) {
+    let products = [];
+    products.push(product);
+    localStorage.setItem('products', JSON.stringify(products));
+  } else {
+    let products = JSON.parse(localStorage.getItem('products'));
+    products.push(product);
+    localStorage.setItem('tasks', JSON.stringify(products));
+  }
+
   ui.resetForm();
   ui.showMessage("Product Added Successfully!", "success")
 
   e.preventDefault();
+
+  // if(localStorage.getItem('products') === null) {
+  //   let products = [];
+  //   products.push(product);
+  //   localStorage.setItem('products', JSON.stringify(products));
+  // } else {
+  //   let products = JSON.parse(localStorage.getItem('products'));
+  //   products.push(product);
+  //   localStorage.setItem('tasks', JSON.stringify(products));
+  // }
+
 });
 
 // CAPTURANDO EL EVENTO DE ELIMINAR UN PRODUCTO Y MOSTRAR MENSAJE
 document.getElementById("product-list").addEventListener("click", function(e){
   const ui = new UI();
   ui.delateProduct(e.target)
-  ui.showMessage("Product Deleted Succsssfully", "info")
+
 })
